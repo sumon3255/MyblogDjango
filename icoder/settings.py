@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home.apps.HomeConfig',
     'blog.apps.BlogConfig',
-    'django.contrib.humanize'
+    'django.contrib.humanize',
+    
+   
 ]
 
 MIDDLEWARE = [
@@ -67,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'blog.views.category_list',
             ],
         },
     },
@@ -126,7 +129,25 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
    os.path.join(BASE_DIR, "static"),
+   
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'faahimtf1@gmail.com'
+EMAIL_HOST_PASSWORD = '01733978064'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'mdsSumonCodingTeam <noreply@example.com>'
+
+
 MESSAGE_TAGS = {
     messages.ERROR: 'danger'
 }
+

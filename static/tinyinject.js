@@ -22,3 +22,4 @@ tinymce.init({
   content_css: 'css/content.css'
 });
 }
+

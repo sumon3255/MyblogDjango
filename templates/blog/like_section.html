@@ -1,0 +1,22 @@
+   <button class="btn btn-secondary btn-sm"  disabled>{{ total_likes }} Like{{ total_likes|pluralize }} </button>
+
+   {% if request.user.is_authenticated %}
+   <div class="my-2">
+     <form action="{% url 'likes_post' %}" method="post">
+   {% csrf_token %}
+   {% if is_liked  %}
+   
+     <button type="submit" id="like" name="post_sno" value="{{ post.sno }}" class="btn btn-danger">Dislike</button>
+   {% else %}
+     <button type="submit" id="like"  name="post_sno" value="{{ post.sno }}" class="btn btn-primary">Like</button>
+   {% endif %}
+
+       
+    </form>
+</div>
+   {% else %}
+   <br>
+   You must have login For Like
+   {% endif %}
+  
+  

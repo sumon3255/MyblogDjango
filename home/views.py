@@ -1,14 +1,19 @@
 from django.shortcuts import render,HttpResponse,redirect
 from home.models import Contact
+from blog.models import Profile
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.models import User
 from blog.models import Post
+from django.http import JsonResponse
+from django.core.mail import send_mail,send_mass_mail
+
+
 # Create your views here.
 
 #HTML
 def home(request):
-    allPosts = Post.objects.all().order_by('-views')[:4]
+    allPosts = Post.objects.all().order_by('-views')[:2]
     context = {'allPosts':allPosts}
     return render(request,'home/home.html',context)
 
@@ -21,16 +26,23 @@ def contact(request):
          email = request.POST['email']
          phone = request.POST['phone']
          content = request.POST['content']
-
+       
          if len(name)<3 or len(email)<5 or len(phone)<3 or len(content)<4:
              messages.error(request, 'Please fill the form correctly')
         
          else:
               contact = Contact(name=name, email=email, phone=phone, content=content)
               contact.save()
+              send_mail(
+             'Subject - mdsSumon Coding Inbox',
+            'Hello I Am' + name + ',\n' +  content,
+            'My Email Is' + email,
+            ['faahimtf1@gmail.com'],
+          
+            )
               messages.success(request, 'Your Message has been sent')
-              
-         
+           
+  
 
      return render(request,'home/contact.html')
 
@@ -92,6 +104,7 @@ def handleSignup(request):
         myuser.first_name = fname
         myuser.last_name = lname
         myuser.save()
+        Profile.objects.create(user=myuser)
         messages.success(request, 'Your account has been successfully created')
         return redirect("home")
 

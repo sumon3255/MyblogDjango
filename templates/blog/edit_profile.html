@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}
+Edit Profile
+{% endblock  %}
+
+{% block body %}
+<div class="container my-3">
+    <h1>Profile</h1>
+    <p>Note : ussername and email arer unchangeable</p>
+    <br>
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ user_form.as_p }}
+    {{ profile_form.as_p }}
+    <input type="submit" value="Save Changes" class="btn btn-primary">
+ 
+
+    </form>
+
+</div>
+
+{% endblock  %}
